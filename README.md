@@ -1,9 +1,8 @@
 # 🌟MikoChan-Telegram-Bot🌟
  Meet Miko Chan: Your Anime Guide! 🌸 /start - Activate the anime frenzy! /search - Dive into the anime universe! 📺✨
 
-Project Logo
 
-License
+[License](https://img.shields.io/badge/license-MIT-blue.svg)
 Build Status
 
 Description
