@@ -2,7 +2,7 @@
  Meet Miko Chan: Your Anime Guide! 🌸 /start - Activate the anime frenzy! /search - Dive into the anime universe! 📺✨
 
 
-[License](https://img.shields.io/badge/license-MIT-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 Build Status
 
 Description
