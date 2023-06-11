@@ -2,9 +2,7 @@ from keep_alive import keep_alive
 
 import os
 from dotenv import load_dotenv
-
 load_dotenv()
-
 my_secret = os.environ.get("TOKEN")
 
 import logging
