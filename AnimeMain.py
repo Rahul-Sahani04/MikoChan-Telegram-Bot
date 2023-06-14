@@ -68,13 +68,13 @@ def start(update, context):
                            text="Welcome to the Anime Bot!")
 
 
-def go_back(update, context):
-  context.user_data.pop('episode_id', None)  # Remove episode_id from user_data
-  context.user_data.pop('anime_id', None)  # Remove anime_id from user_data
-  context.user_data.pop('search_results',
-                        None)  # Remove search_results from user_data
-  context.bot.send_message(chat_id=update.effective_chat.id,
-                           text="You have gone back one step.")
+# def go_back(update, context):
+#   context.user_data.pop('episode_id', None)  # Remove episode_id from user_data
+#   context.user_data.pop('anime_id', None)  # Remove anime_id from user_data
+#   context.user_data.pop('search_results',
+#                         None)  # Remove search_results from user_data
+#   context.bot.send_message(chat_id=update.effective_chat.id,
+#                            text="You have gone back one step.")
 
 
 def search(update, context):
@@ -88,6 +88,7 @@ def search(update, context):
 def process_search(update, context):
   query = update.message.text
   page = 1
+  
   search_results = search_anime(query)
   context.user_data['search_results'] = search_results
 
@@ -164,6 +165,10 @@ def select_anime(update, context):
   context.bot.send_message(chat_id=update.effective_chat.id,
                            text=message,
                            reply_markup=reply_markup)
+  
+  message = '''You can do the following:\n  1. Enter the Episode number (Eg. 1 or 4)\n  2. Enter a range (Eg. 1 - 3). Dash only(-)\n  3. Enter Selected Ep only (Eg. 1, 3, 5). Commas only (,)'''
+  context.bot.send_message(chat_id=update.effective_chat.id, text=message)
+  
   context.bot.send_message(chat_id=update.effective_chat.id,
                            text=f"Select an episode (Total: {total_ep}): ")
 
@@ -226,10 +231,41 @@ def get_anime_details(anime_info):
 
 
 def select_episode(update, context):
-  selected_episode_number = int(update.message.text)
+  selected_episode_number = update.message.text
+  selected_episode_number.replace(" ", "")
   anime_id = context.user_data['anime_id']
-  print("ID: ", anime_id)
-  anime_info = get_anime_info(anime_id)
+  # print("ID: ", anime_id)
+  
+  if "," in selected_episode_number:
+    # Input contains comma-separated integers
+    numbers = [int(n) for n in selected_episode_number.split(",")]
+    anime_info = get_anime_info(anime_id)
+    for num in numbers:
+      episode_after(update, context, anime_info, num)
+      
+    send_random_cute_message(update, context)
+        # perform_task(num)
+        
+  elif "-" in selected_episode_number:
+      # Input represents a range
+      start, end = [int(n) for n in selected_episode_number.split("-")]
+      numbers = range(start, end + 1)
+      anime_info = get_anime_info(anime_id)
+      for num in numbers:
+        episode_after(update, context, anime_info, num)
+        
+      send_random_cute_message(update, context)
+          # perform_task(num)
+  else:
+      # Input is a single integer
+      number = int(selected_episode_number)
+      anime_info = get_anime_info(anime_id)
+      episode_after(update, context, anime_info, selected_episode_number)
+      send_random_cute_message(update, context)
+      # perform_task(number)
+  # anime_info = get_anime_info(anime_id)
+
+def episode_after(update, context, anime_info, selected_episode_number):
   episodes = anime_info["episodes"]
   print("Episode 1: ", episodes[0])
   selected_episode_id = None
@@ -248,7 +284,7 @@ def select_episode(update, context):
         chat_id=update.effective_chat.id,
         text=f"Stream Link for episode {selected_episode_number}: {streamlink}"
       )
-      send_random_cute_message(update, context)
+      # send_random_cute_message(update, context)
     else:
       context.bot.send_message(chat_id=update.effective_chat.id,
                                text="Episode sources not found.")
@@ -272,12 +308,6 @@ def cancel(update, context):
   context.bot.send_message(chat_id=update.effective_chat.id,
                            text="Search canceled.")
   return ConversationHandler.END
-
-
-# def search_anime(query):
-#     url = f"https://api.consumet.org/anime/gogoanime/{query}?page={page}"
-#     response = requests.get(url)
-#     return response.json()
 
 
 def search_anime(query):
@@ -322,7 +352,7 @@ def main():
   )
 
   dp.add_handler(CommandHandler('start', start))
-  dp.add_handler(CommandHandler('goback', go_back))
+  # dp.add_handler(CommandHandler('goback', go_back))
   dp.add_handler(conv_handler)
 
   updater.start_polling()
