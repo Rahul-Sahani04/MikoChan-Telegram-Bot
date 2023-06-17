@@ -5,6 +5,15 @@ from dotenv import load_dotenv
 load_dotenv()
 my_secret = os.environ.get("TOKEN")
 
+import csv
+
+
+def append_row_to_csv(filename, data):
+  with open(filename, 'a', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerow(data)
+
+
 import logging
 import requests
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
@@ -88,7 +97,7 @@ def search(update, context):
 def process_search(update, context):
   query = update.message.text
   page = 1
-  
+
   search_results = search_anime(query)
   context.user_data['search_results'] = search_results
 
@@ -165,10 +174,10 @@ def select_anime(update, context):
   context.bot.send_message(chat_id=update.effective_chat.id,
                            text=message,
                            reply_markup=reply_markup)
-  
+
   message = '''You can do the following:\n  1. Enter the Episode number (Eg. 1 or 4)\n  2. Enter a range (Eg. 1 - 3). Dash only(-)\n  3. Enter Selected Ep only (Eg. 1, 3, 5). Commas only (,)'''
   context.bot.send_message(chat_id=update.effective_chat.id, text=message)
-  
+
   context.bot.send_message(chat_id=update.effective_chat.id,
                            text=f"Select an episode (Total: {total_ep}): ")
 
@@ -218,9 +227,19 @@ def get_anime_info(anime_id):
 
 def get_anime_details(anime_info):
   title = anime_info['title']
+  title_id = anime_info['id']
   total_episodes = anime_info['totalEpisodes']
   release_date = anime_info['releaseDate']
   description = anime_info['description']
+
+  # Specify the CSV file path
+  csv_file = 'Most_Searched.csv'
+
+  # Specify the data for the new row
+  new_row = [title, title_id, release_date]
+
+  # Append the new row to the CSV file
+  append_row_to_csv(csv_file, new_row)
 
   message = f"Title: {title}\n"
   message += f"Total Episodes: {total_episodes}\n"
@@ -235,42 +254,47 @@ def select_episode(update, context):
   selected_episode_number.replace(" ", "")
   anime_id = context.user_data['anime_id']
   # print("ID: ", anime_id)
-  
+
   if "," in selected_episode_number:
     # Input contains comma-separated integers
     numbers = [int(n) for n in selected_episode_number.split(",")]
     anime_info = get_anime_info(anime_id)
     for num in numbers:
       episode_after(update, context, anime_info, num)
-      
+
     send_random_cute_message(update, context)
-        # perform_task(num)
-        
+    return ConversationHandler.END
+    # perform_task(num)
+
   elif "-" in selected_episode_number:
-      # Input represents a range
-      start, end = [int(n) for n in selected_episode_number.split("-")]
-      numbers = range(start, end + 1)
-      anime_info = get_anime_info(anime_id)
-      for num in numbers:
-        episode_after(update, context, anime_info, num)
-        
-      send_random_cute_message(update, context)
-          # perform_task(num)
+    # Input represents a range
+    start, end = [int(n) for n in selected_episode_number.split("-")]
+    numbers = range(start, end + 1)
+    anime_info = get_anime_info(anime_id)
+    for num in numbers:
+      episode_after(update, context, anime_info, num)
+
+    send_random_cute_message(update, context)
+    return ConversationHandler.END
+    # perform_task(num)
   else:
-      # Input is a single integer
-      number = int(selected_episode_number)
-      anime_info = get_anime_info(anime_id)
-      episode_after(update, context, anime_info, selected_episode_number)
-      send_random_cute_message(update, context)
-      # perform_task(number)
+    # Input is a single integer
+    number = int(selected_episode_number)
+    print("Number: ", number)
+    anime_info = get_anime_info(anime_id)
+    episode_after(update, context, anime_info, number)
+    send_random_cute_message(update, context)
+    return ConversationHandler.END
+    # perform_task(number)
   # anime_info = get_anime_info(anime_id)
+
 
 def episode_after(update, context, anime_info, selected_episode_number):
   episodes = anime_info["episodes"]
-  print("Episode 1: ", episodes[0])
   selected_episode_id = None
   for episode in episodes:
     if episode['number'] == selected_episode_number:
+      print(selected_episode_number)
       selected_episode_id = episode['id']
       break
   if selected_episode_id:
