@@ -30,10 +30,25 @@ Acknowledgments
 ## Installation
 To get started with the Amazing Project MikoChan, follow these simple steps:
 
-Clone the repository: git clone https://github.com/Rahul-Sahani04/MikoChan-Telegram-Bot.git
-Navigate to the project directory: cd repo
-Install the dependencies: pip install requirements.txt
-Run MikoChan: python3 AnimeMain.py
+Clone the repository: 
+```bash
+git clone https://github.com/Rahul-Sahani04/MikoChan-Telegram-Bot.git
+```
+
+Navigate to the project directory: 
+```bash
+cd MikoChan\ Telegram\ Bot
+```
+
+Install the dependencies: 
+```bash
+pip install requirements.txt
+```
+Run MikoChan: 
+```bash
+python3 AnimeMain.py
+```
+
 
 ## Usage
 /start - Activate the anime frenzy!
@@ -47,17 +62,20 @@ Change the Token based on the token of your bot
 For detailed information on how to use the Amazing Project MikoChan, please refer to our complete documentation.
 
 ## Contributing
-We welcome contributions from the community! If you'd like to contribute to the Amazing Project MikoChan, please follow these guidelines:
-
-[Provide guidelines for bug reports]
-[Explain how users can submit feature requests]
-[Outline the process for creating pull requests]
+We welcome contributions from the community! If you'd like to contribute to the Amazing Project MikoChan.
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
-## Acknowledgments
-We would like to express our gratitude to the following individuals/projects for their contributions and support:
 
-[Mention any individuals or projects that have influenced or supported your work]
-Thank you for choosing the Amazing Project MikoChan! We hope you find it [adjective] and [adjective]. Enjoy Anime! 😄✨
+## Acknowledgments
+
+A special shoutout to [vishvara-sharda](https://github.com/vishvara-sharda) for the fantastic idea behind this project!
+
+<div style="border-radius: 50%,">
+    <img src="https://avatars.githubusercontent.com/u/142617173?v=4"
+     alt="User Image" width="100" height="100">
+</div>
+
+
+Thank you for choosing the Amazing Project MikoChan! We hope you find it captivating and exhilarating. Enjoy Anime! 😄✨
