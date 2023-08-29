@@ -72,7 +72,7 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 A special shoutout to [vishvara-sharda](https://github.com/vishvara-sharda) for the fantastic idea behind this project!
 <p align="left">
-  <img src="https://avatars.githubusercontent.com/u/142617173?v=4" alt="Image" width="100" height="100" style="border-radius: '50%'; border: '2px solid gold';">
+  <img src="https://avatars.githubusercontent.com/u/142617173?v=4" alt="Image" width="75" height="75" style="border-radius: '50%'; border: '2px solid gold';">
 </p>
 
 
