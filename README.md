@@ -71,7 +71,10 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 ## Acknowledgments
 
 A special shoutout to [vishvara-sharda](https://github.com/vishvara-sharda) for the fantastic idea behind this project!
-![avatar](https://avatars.githubusercontent.com/u/142617173?v=4&h=50&w=50&fit=cover&mask=circle&maxage=7d)
+<p align="left">
+  <img src="https://avatars.githubusercontent.com/u/142617173?v=4" alt="Image" width="100" height="100" style="border-radius: '50%'; border: '2px solid gold';">
+</p>
+
 
 <br/>
 <br/>
