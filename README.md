@@ -1,10 +1,7 @@
 # 🌟MikoChan-Telegram-Bot🌟
  Meet Miko Chan: Your Anime Guide! 🌸 /start - Activate the anime frenzy! /search - Dive into the anime universe! 📺✨
 
-
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-
-![Build Status]
 
 ## Description
 Welcome to the Amazing Project MikoChan! This project is an incredible tool for anime enthusiasts, providing a seamless and immersive anime experience. It acts as your ultimate anime companion, allowing you to dive deep into the world of anime with ease and convenienced. 
