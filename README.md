@@ -72,10 +72,11 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 A special shoutout to [vishvara-sharda](https://github.com/vishvara-sharda) for the fantastic idea behind this project!
 
-<div style="border-radius: 50%,">
+<div >
     <img src="https://avatars.githubusercontent.com/u/142617173?v=4"
-     alt="User Image" width="100" height="100">
+     style="border-radius: 50%; border: 2px gold solid;" alt="Image" width="60" height="60">
 </div>
-
+<br/>
+<br/>
 
 Thank you for choosing the Amazing Project MikoChan! We hope you find it captivating and exhilarating. Enjoy Anime! 😄✨
