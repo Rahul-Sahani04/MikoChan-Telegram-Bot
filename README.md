@@ -74,7 +74,7 @@ A special shoutout to [vishvara-sharda](https://github.com/vishvara-sharda) for 
 
 <div >
     <img src="https://avatars.githubusercontent.com/u/142617173?v=4"
-     style="border-radius: 50%; border: 2px gold solid;" alt="Image" width="60" height="60">
+     style="border-radius: '50%'; border: '2px gold solid;'" alt="Image" width="60" height="60">
 </div>
 <br/>
 <br/>
