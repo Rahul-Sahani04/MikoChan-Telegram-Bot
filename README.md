@@ -39,7 +39,7 @@ cd MikoChan\ Telegram\ Bot
 
 Install the dependencies: 
 ```bash
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 Run MikoChan: 
 ```bash
@@ -48,9 +48,9 @@ python3 AnimeMain.py
 
 
 ## Usage
-/start - Activate the anime frenzy!
-/search - Dive into the vast ocean of anime awesomeness!
-/cancel - Cancels the search
+- **/start** - Activate the anime frenzy!
+- **/search** - Dive into the vast ocean of anime awesomeness!
+- **/cancel** - Cancels the search
 
 ## Configuration
 Change the Token based on the token of your bot
