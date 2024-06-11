@@ -5,6 +5,8 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
+<img src="assets/banner.png" width="100%" />
+
 ## Description
 Welcome to the Amazing Project MikoChan! This project is an incredible tool for anime enthusiasts, providing a seamless and immersive anime experience. It acts as your ultimate anime companion, allowing you to dive deep into the world of anime with ease and convenience. 
 
