@@ -18,7 +18,7 @@ def append_row_to_csv(filename, data):
 import logging
 import requests
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler,  ConversationHandler, Filters
 
 # Enable logging
 logging.basicConfig(
@@ -142,7 +142,14 @@ def create_search_results_message(results, page, num_pages):
   message = "Search results:\n"
   for i, result in enumerate(results[start_index:end_index],
                              start=start_index):
-    message += f"{i+1}. {result['title']}\n"
+        # Get the titles from anime_info
+    titles = result['title']
+
+    # Try to find the most preferred title in order of precedence
+    title = titles.get("english") or titles.get("userPreferred") or titles.get("romaji") or titles.get("native", "")
+
+
+    message += f"{i+1}. {title}\n"
 
   message += f"\nPage {page} of {num_pages}"  # Add page information to the message
 
@@ -221,13 +228,19 @@ def select_page(update, context, page):
 
 
 def get_anime_info(anime_id):
-  url = f"{api_url}/anime/gogoanime/info/{anime_id}"
+  url = f"{api_url}/meta/anilist/info/{anime_id}"
   response = requests.get(url)
   return response.json()
 
 
 def get_anime_details(anime_info):
-  title = anime_info['title']
+  # Get the titles from anime_info
+  titles = anime_info['title']
+
+  # Try to find the most preferred title in order of precedence
+  title = titles.get("english") or titles.get("userPreferred") or titles.get("romaji") or titles.get("native", "")
+
+  
   title_id = anime_info['id']
   total_episodes = anime_info['totalEpisodes']
   release_date = anime_info['releaseDate']
@@ -300,11 +313,19 @@ def episode_after(update, context, anime_info, selected_episode_number):
       break
   if selected_episode_id:
     context.user_data['episode_id'] = selected_episode_id
-    episode_sources = get_episode_sources(selected_episode_id)
-    if "headers" in episode_sources:
-      first_source = episode_sources["sources"][0]
-      head = episode_sources["headers"]
-      streamlink = head["Referer"]
+    # episode_sources = get_episode_sources(selected_episode_id)
+    # if "headers" in episode_sources:
+    #   first_source = episode_sources["sources"][0]
+    #   head = episode_sources["headers"]
+    #   streamlink = head["Referer"]
+    #   context.bot.send_message(
+    #     chat_id=update.effective_chat.id,
+    #     text=f"Stream Link for episode {selected_episode_number}: {streamlink}"
+    #   )
+    
+    # Redirects to my website
+    streamlink = get_episode_sources(anime_info["id"], selected_episode_id)
+    if streamlink:
       context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=f"Stream Link for episode {selected_episode_number}: {streamlink}"
@@ -319,12 +340,14 @@ def episode_after(update, context, anime_info, selected_episode_number):
   return ConversationHandler.END
 
 
-def get_episode_sources(episode_id):
+def get_episode_sources(anime_id, episode_id):
   
-  url = f"{api_url}/anime/gogoanime/watch/{episode_id}"
-  response = requests.get(url)
-  data = response.json()
-  if data:
+  myWebsiteUrl = f"https://v-anime.vercel.app/watch?query={anime_id}&ep={episode_id}"
+  # response = requests.get(url)
+  # data = response.json()
+  
+  data = myWebsiteUrl
+  if data and episode_id:
     return data
   else:
     return None
@@ -343,7 +366,7 @@ def search_anime(query):
 
   while has_next_page:
     # print(page)
-    url = f"{api_url}/anime/gogoanime/{query}?page={page}"
+    url = f"{api_url}/meta/anilist/{query}?page={page}"
     response = requests.get(url)
     data = response.json()
     # print(data.get("hasNextPage"))
