@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 my_secret = os.environ.get("TOKEN")
+api_url = os.environ.get("API_URL")
 
 import csv
 
@@ -220,7 +221,7 @@ def select_page(update, context, page):
 
 
 def get_anime_info(anime_id):
-  url = f"https://api.consumet.org/anime/gogoanime/info/{anime_id}"
+  url = f"{api_url}/anime/gogoanime/info/{anime_id}"
   response = requests.get(url)
   return response.json()
 
@@ -319,7 +320,8 @@ def episode_after(update, context, anime_info, selected_episode_number):
 
 
 def get_episode_sources(episode_id):
-  url = f"https://api.consumet.org/anime/gogoanime/watch/{episode_id}"
+  
+  url = f"{api_url}/anime/gogoanime/watch/{episode_id}"
   response = requests.get(url)
   data = response.json()
   if data:
@@ -341,7 +343,7 @@ def search_anime(query):
 
   while has_next_page:
     # print(page)
-    url = f"https://api.consumet.org/anime/gogoanime/{query}?page={page}"
+    url = f"{api_url}/anime/gogoanime/{query}?page={page}"
     response = requests.get(url)
     data = response.json()
     # print(data.get("hasNextPage"))
