@@ -36,7 +36,7 @@ git clone https://github.com/Rahul-Sahani04/MikoChan-Telegram-Bot.git
 
 Navigate to the project directory: 
 ```bash
-cd MikoChan\ Telegram\ Bot
+cd MikoChan-Telegram-Bot
 ```
 
 Install the dependencies: 
