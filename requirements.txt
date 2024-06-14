@@ -2,5 +2,5 @@
 Flask==3.0.3
 python-dotenv==1.0.1
 python-telegram-bot==13.0
-requests==2.31.0
+requests==2.32.2
 urllib3==1.26.16
